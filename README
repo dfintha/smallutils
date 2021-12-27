@@ -1,0 +1,7 @@
+Small Utility Repository
+========================
+
+This repository contains some small single-source-file utilities I've written
+over time. Each file in the 'src' directory is a utility. By using the 'make'
+command, the utilities are compiled (or copied in case of interpreted languages)
+to the bin directory, ready to use.
