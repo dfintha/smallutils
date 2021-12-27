@@ -1,5 +1,6 @@
 BINARIES= \
-	bin/bf
+	bin/bf \
+	bin/pwgen
 
 .PHONY: all clean
 
@@ -14,3 +15,8 @@ bin/bf: src/bf.c
 	@printf "Compiling $@\n"
 	@mkdir -p bin
 	@gcc -Wall -Wextra -pedantic -std=c89 -O2 -s $< -o $@
+
+bin/pwgen: src/pwgen.c
+	@printf "Compiling $@\n"
+	@mkdir -p bin
+	@gcc -Wall -Wextra -pedantic -std=c99 -O2 -s $< -o $@
