@@ -1,7 +1,8 @@
 BINARIES= \
 	bin/bf \
 	bin/pwgen \
-	bin/bmi
+	bin/bmi \
+	bin/fire
 
 .PHONY: all clean
 
@@ -26,3 +27,8 @@ bin/bmi: src/bmi.c
 	@printf "Compiling $@\n"
 	@mkdir -p bin
 	@gcc -Wall -Wextra -pedantic -std=c99 -O2 -s $< -o $@
+
+bin/fire: src/fire.cpp
+	@printf "Compiling $@\n"
+	@mkdir -p bin
+	@g++ -Wall -Wextra -pedantic -std=c++14 -O2 `sdl-config --cflags` $< -o $@ `sdl-config --libs`

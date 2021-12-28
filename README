@@ -10,3 +10,4 @@ The following tools are maintained in the repository.
 - bf: A simple brainfuck interpreter.
 - pwgen: A password generator.
 - bmi: A body mass index calculator.
+- fire: A simple fire animation, with a technique taken from Final DOOM.
