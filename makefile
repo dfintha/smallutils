@@ -2,7 +2,8 @@ BINARIES= \
 	bin/bf \
 	bin/pwgen \
 	bin/bmi \
-	bin/fire
+	bin/fire \
+	bin/vigenere
 
 .PHONY: all clean
 
@@ -32,3 +33,8 @@ bin/fire: src/fire.cpp
 	@printf "Compiling $@\n"
 	@mkdir -p bin
 	@g++ -Wall -Wextra -pedantic -std=c++14 -O2 `sdl-config --cflags` $< -o $@ `sdl-config --libs`
+
+bin/vigenere: src/vigenere.cpp
+	@printf "Compiling $@\n"
+	@mkdir -p bin
+	@g++ -Wall -Wextra -pedantic -std=c++98 -O2 $< -o $@
