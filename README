@@ -7,9 +7,9 @@ command, the utilities are compiled (or copied in case of interpreted languages)
 to the bin directory, ready to use.
 
 The following tools are maintained in the repository.
-- bf: A simple brainfuck interpreter.
-- pwgen: A password generator.
-- bmi: A body mass index calculator.
-- fire: A simple fire animation, with a technique taken from Final DOOM.
-- vigenere: A very simplistic implementation of the Vigenère cipher.
+- bf: Brainfuck interpreter.
+- pwgen: Password generator.
+- bmi: Body mass index (BMI) calculator.
+- fire: Simple fire animation, with a technique taken from Final DOOM.
+- vigenere: Naive implementation of the Vigenère cipher.
 - pdfcompress: Small script to reduce PDF file sizes using Ghostscript.
