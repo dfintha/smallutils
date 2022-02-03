@@ -3,7 +3,8 @@ BINARIES= \
 	bin/pwgen \
 	bin/bmi \
 	bin/fire \
-	bin/vigenere
+	bin/vigenere \
+	bin/pdfcompress
 
 .PHONY: all clean
 
@@ -38,3 +39,9 @@ bin/vigenere: src/vigenere.cpp
 	@printf "Compiling $@\n"
 	@mkdir -p bin
 	@g++ -Wall -Wextra -pedantic -std=c++98 -O2 $< -o $@
+
+bin/pdfcompress: src/pdfcompress.sh
+	@printf "Copying $@\n"
+	@mkdir -p bin
+	@cp $< $@
+	@chmod +x $@
