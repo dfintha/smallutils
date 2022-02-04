@@ -4,7 +4,8 @@ BINARIES= \
 	bin/bmi \
 	bin/fire \
 	bin/vigenere \
-	bin/pdfcompress
+	bin/pdfcompress \
+	bin/autoclick
 
 .PHONY: all clean
 
@@ -41,6 +42,12 @@ bin/vigenere: src/vigenere.cpp
 	@g++ -Wall -Wextra -pedantic -std=c++98 -O2 $< -o $@
 
 bin/pdfcompress: src/pdfcompress.sh
+	@printf "Copying $@\n"
+	@mkdir -p bin
+	@cp $< $@
+	@chmod +x $@
+
+bin/autoclick: src/autoclick.py
 	@printf "Copying $@\n"
 	@mkdir -p bin
 	@cp $< $@
