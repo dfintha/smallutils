@@ -14,3 +14,4 @@ The following tools are maintained in the repository.
 - vigenere: Naive implementation of the Vigenère cipher.
 - pdfcompress: Small script to reduce PDF file sizes using Ghostscript.
 - autoclick: Auto-clicking tool.
+- hexstrdump: Tool to dump file contents as hex-formatted C strings.

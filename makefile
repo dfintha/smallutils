@@ -5,7 +5,8 @@ BINARIES= \
 	bin/fire \
 	bin/vigenere \
 	bin/pdfcompress \
-	bin/autoclick
+	bin/autoclick \
+	bin/hexstrdump
 
 .PHONY: all clean
 
@@ -52,3 +53,8 @@ bin/autoclick: src/autoclick.py
 	@mkdir -p bin
 	@cp $< $@
 	@chmod +x $@
+
+bin/hexstrdump: src/hexstrdump.c
+	@printf "Compiling $@\n"
+	@mkdir -p bin
+	@gcc -Wall -Wextra -pedantic -std=c99 -O2 -s $< -o $@
