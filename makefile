@@ -6,7 +6,8 @@ BINARIES= \
 	bin/vigenere \
 	bin/pdfcompress \
 	bin/autoclick \
-	bin/hexstrdump
+	bin/hexstrdump \
+	bin/htmlm
 
 .PHONY: all clean
 
@@ -58,3 +59,9 @@ bin/hexstrdump: src/hexstrdump.c
 	@printf "Compiling $@\n"
 	@mkdir -p bin
 	@gcc -Wall -Wextra -pedantic -std=c99 -O2 -s $< -o $@
+
+bin/htmlm: src/htmlm.py
+	@printf "Copying $@\n"
+	@mkdir -p bin
+	@cp $< $@
+	@chmod +x $@

@@ -15,3 +15,4 @@ The following tools are maintained in the repository.
 - pdfcompress: Small script to reduce PDF file sizes using Ghostscript.
 - autoclick: Auto-clicking tool.
 - hexstrdump: Tool to dump file contents as hex-formatted C strings.
+- htmlm: HTML with Macros processor.
