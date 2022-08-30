@@ -16,3 +16,4 @@ The following tools are maintained in the repository.
 - autoclick: Auto-clicking tool.
 - hexstrdump: Tool to dump file contents as hex-formatted C strings.
 - htmlm: HTML with Macros processor.
+- albumtagger: Tool to tag whole albums consisting of MP3 files.

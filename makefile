@@ -7,7 +7,8 @@ BINARIES= \
 	bin/pdfcompress \
 	bin/autoclick \
 	bin/hexstrdump \
-	bin/htmlm
+	bin/htmlm \
+	bin/albumtagger
 
 .PHONY: all clean
 
@@ -61,6 +62,12 @@ bin/hexstrdump: src/hexstrdump.c
 	@gcc -Wall -Wextra -pedantic -std=c99 -O2 -s $< -o $@
 
 bin/htmlm: src/htmlm.py
+	@printf "Copying $@\n"
+	@mkdir -p bin
+	@cp $< $@
+	@chmod +x $@
+
+bin/albumtagger: src/albumtagger.py
 	@printf "Copying $@\n"
 	@mkdir -p bin
 	@cp $< $@
