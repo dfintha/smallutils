@@ -8,7 +8,8 @@ BINARIES= \
 	bin/autoclick \
 	bin/hexstrdump \
 	bin/htmlm \
-	bin/albumtagger
+	bin/albumtagger \
+	bin/htmlvis
 
 .PHONY: all clean
 
@@ -68,6 +69,12 @@ bin/htmlm: src/htmlm.py
 	@chmod +x $@
 
 bin/albumtagger: src/albumtagger.py
+	@printf "Copying $@\n"
+	@mkdir -p bin
+	@cp $< $@
+	@chmod +x $@
+
+bin/htmlvis: src/htmlvis.py
 	@printf "Copying $@\n"
 	@mkdir -p bin
 	@cp $< $@
