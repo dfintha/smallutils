@@ -18,3 +18,7 @@ The following tools are maintained in the repository.
 - htmlm: HTML with Macros processor.
 - albumtagger: Tool to tag whole albums consisting of MP3 files.
 - htmlvis: HTML visualizer via dot/graphviz.
+- bunnies: A simple animation of two bunnies with a heart between them.
+- cats: A simple animation of two cats sitting on a fence, originally found in
+        Windows 8 builds. For more information, visit Raymond Chen's blog at
+        'https://devblogs.microsoft.com/oldnewthing/20220208-00/?p=106232'.

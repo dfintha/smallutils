@@ -9,7 +9,9 @@ BINARIES= \
 	bin/hexstrdump \
 	bin/htmlm \
 	bin/albumtagger \
-	bin/htmlvis
+	bin/htmlvis \
+	bin/bunnies \
+	bin/cats
 
 .PHONY: all clean
 
@@ -79,3 +81,13 @@ bin/htmlvis: src/htmlvis.py
 	@mkdir -p bin
 	@cp $< $@
 	@chmod +x $@
+
+bin/bunnies: src/bunnies.cpp
+	@printf "Compiling $@\n"
+	@mkdir -p bin
+	@g++ -Wall -Wextra -pedantic -std=c++14 -O2 -s $< -o $@ -pthread -lncursesw
+
+bin/cats: src/cats.cpp
+	@printf "Compiling $@\n"
+	@mkdir -p bin
+	@g++ -Wall -Wextra -pedantic -std=c++14 -O2 -s $< -o $@ -pthread -lncursesw
