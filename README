@@ -22,3 +22,5 @@ The following tools are maintained in the repository.
 - cats: A simple animation of two cats sitting on a fence, originally found in
         Windows 8 builds. For more information, visit Raymond Chen's blog at
         'https://devblogs.microsoft.com/oldnewthing/20220208-00/?p=106232'.
+- mediacontrol: A media control server, which provides a web interface to
+                skip tracks and look at the lyrics.

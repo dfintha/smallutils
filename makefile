@@ -11,7 +11,8 @@ BINARIES= \
 	bin/albumtagger \
 	bin/htmlvis \
 	bin/bunnies \
-	bin/cats
+	bin/cats \
+	bin/mediacontrol
 
 .PHONY: all clean
 
@@ -91,3 +92,9 @@ bin/cats: src/cats.cpp
 	@printf "Compiling $@\n"
 	@mkdir -p bin
 	@g++ -Wall -Wextra -pedantic -std=c++14 -O2 -s $< -o $@ -pthread -lncursesw
+
+bin/mediacontrol: src/mediacontrol.py
+	@printf "Copying $@\n"
+	@mkdir -p bin
+	@cp $< $@
+	@chmod +x $@
