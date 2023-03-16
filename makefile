@@ -12,7 +12,8 @@ BINARIES= \
 	bin/htmlvis \
 	bin/bunnies \
 	bin/cats \
-	bin/mediacontrol
+	bin/mediacontrol \
+	bin/prettify
 
 .PHONY: all clean
 
@@ -94,6 +95,12 @@ bin/cats: src/cats.cpp
 	@g++ -Wall -Wextra -pedantic -std=c++14 -O2 -s $< -o $@ -pthread -lncursesw
 
 bin/mediacontrol: src/mediacontrol.py
+	@printf "Copying $@\n"
+	@mkdir -p bin
+	@cp $< $@
+	@chmod +x $@
+
+bin/prettify: src/prettify.py
 	@printf "Copying $@\n"
 	@mkdir -p bin
 	@cp $< $@

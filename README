@@ -24,3 +24,4 @@ The following tools are maintained in the repository.
         'https://devblogs.microsoft.com/oldnewthing/20220208-00/?p=106232'.
 - mediacontrol: A media control server, which provides a web interface to
                 skip tracks and look at the lyrics.
+- prettify: Reformats/prettifies various data formats (XML, JSON, Python).
