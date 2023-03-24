@@ -591,16 +591,27 @@ def parse_artist_and_title(state: dict) -> dict:
 def get_lyrics_for_track(state: dict, verbose: bool) -> str:
     """Retrieves the lyrics of a song from AZLyrics."""
 
-    def replace_known_title(field: str) -> str:
+    def replace_known_artist(field: str) -> str:
+        """Replaces known artists."""
+        known = {
+            "ELO": "Electric Light Orchestra",
+            "Jimi Hendrix Experience": "Jimi Hendrix",
+        }
+        return known[field] if field in known else field
+
+        def replace_known_title(field: str) -> str:
         """Replaces known titles."""
         known = {
             "B********": "Bückstabü",
+            "Why Don't You Do Right": "Why Don't You Do Right (Get Me Some Money Too)",
+            "I-E-A-I-E-I-O": "I-E-A-I-A-I-O",
+            "Foxy Lady": "Foxey Lady",
         }
         return known[field] if field in known else field
 
     def filter_special(field: str) -> str:
         """Filters special characters from a string."""
-        specials = "/'\" (),.?!-_äáëéóöőúüűß"
+        specials = "/'\" (),.?!-_äáëéóöőúüűß[*]"
         return "".join(c for c in field if c not in specials).lower()
 
     try:
@@ -608,7 +619,7 @@ def get_lyrics_for_track(state: dict, verbose: bool) -> str:
         title = state["Title"]
         if artist.startswith("The "):
             artist = artist[4:]
-        artist = filter_special(unidecode.unidecode(artist))
+        artist = filter_special(replace_known_artist(unidecode.unidecode(artist)))
         title = filter_special(replace_known_title(title))
         url = f"http://www.azlyrics.com/lyrics/{str(artist)}/{str(title)}.html"
         if verbose:
