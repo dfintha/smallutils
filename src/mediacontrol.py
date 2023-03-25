@@ -11,6 +11,7 @@ import ctypes
 import datetime
 import json
 import http.server
+import os
 import sys
 import typing
 import unidecode
@@ -538,28 +539,66 @@ def main() -> None:
             help="verbose mode, debug messages are emitted",
         )
 
+        duck_bw = (
+            "                                \n"
+            "                                \n"
+            "            ▓▓▓▓▓▓▓▓▓▓          \n"
+            "          ▓▓▓▓▓▓▓▓▓▓▓▓▓▓        \n"
+            "          ▓▓▓▓▓▓  ▒▒▓▓▓▓░░░░░░  \n"
+            "          ▓▓▓▓▓▓    ▓▓░░░░░░░░  \n"
+            "          ▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░    \n"
+            "          ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒      \n"
+            "  ▓▓▓▓      ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒    \n"
+            "  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▓▓▒▒▒▒  \n"
+            "  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒  \n"
+            "  ▒▒▓▓▓▓▒▒▓▓▓▓▓▓▓▓▓▓▓▓░░▒▒▒▒▒▒  \n"
+            "    ▒▒▓▓▒▒▓▓▓▓▓▓▓▓░░░░▒▒▒▒▒▒▒▒  \n"
+            "    ▒▒▒▒▒▒░░░░░░░░▒▒▒▒▒▒▒▒▒▒    \n"
+            "      ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒      \n"
+            "          ▒▒▒▒▒▒▒▒▒▒▒▒          \n"
+            "                                \n"
+            "                                \n"
+        )
+
+        duck_color = (
+            "\n"
+            "            \x1B[33;1m▓▓▓▓▓▓▓▓▓▓\x1B[0m\n"
+            "          \x1B[33;1m▓▓▓▓▓▓▓▓▓▓▓▓▓▓\x1B[0m\n"
+            "          \x1B[33;1m▓▓▓▓▓▓\x1B[0m  \x1B[37;1m▓▓"
+            "\x1B[33;1m▓▓▓▓\x1B[33;2m▒▒▒▒▒▒\x1B[0m\n"
+            "          \x1B[33;1m▓▓▓▓▓▓\x1B[0m    "
+            "\x1B[33;1m▓▓\x1B[33;2m▒▒▒▒▒▒▒▒\x1B[0m\n"
+            "          \x1B[33;1m▓▓▓▓▓▓▓▓▓▓▓▓\x1B[33;2m▒▒▒▒▒▒\x1B[0m\n"
+            "          \x1B[33;1m▓▓▓▓▓▓▓▓▓▓▓▓▓▓\x1B[33m▒▒\x1B[0m\n"
+            "  \x1B[33;1m▓▓▓▓\x1B[0m      \x1B[33;1m▓▓▓▓▓▓▓▓▓▓▓▓▓▓"
+            "\x1B[33m▒▒\x1B[0m\n"
+            "  \x1B[33;1m▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓\x1B[33m▒▒\x1B[33;1m▓▓"
+            "\x1B[33m▒▒▒▒\x1B[0m\n"
+            "  \x1B[33;1m▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓\x1B[33m▒▒▒▒▒▒\x1B[0m\n"
+            "  \x1B[33m▒▒\x1B[33;1m▓▓▓▓\x1B[33m▒▒\x1B[33;1m▓▓▓▓▓▓▓▓▓▓▓▓"
+            "\x1B[33;2m▒▒\x1B[0m\x1B[33m▒▒▒▒▒▒\x1B[0m\n"
+            "    \x1B[33m▒▒\x1B[33;1m▓▓\x1B[33m▒▒\x1B[33;1m▓▓▓▓▓▓▓▓"
+            "\x1B[33;2m▒▒▒▒\x1B[0m\x1B[33m▒▒▒▒▒▒▒▒\x1B[0m\n"
+            "    \x1B[33m▒▒▒▒▒▒\x1B[33;2m▒▒▒▒▒▒▒▒\x1B[0m"
+            "\x1B[33m▒▒▒▒▒▒▒▒▒▒\x1B[0m\n"
+            "      \x1B[33m▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒\x1B[0m\n"
+            "          \x1B[33m▒▒▒▒▒▒▒▒▒▒▒▒\x1B[0m\n"
+            "\n"
+        )
+
+        selected_duck = duck_bw
+        if "TERM" in os.environ and "color" in os.environ["TERM"]:
+            selected_duck = duck_color
+        if "WT_SESSION" in os.environ:
+            selected_duck = duck_color
+
         arguments = vars(parser.parse_args())
         set_console_title("mediacontrol Server")
         port = arguments["port"]
         server = http.server.HTTPServer(("", port), MediaQueryHandler)
         server.verbose = arguments["verbose"]
         print(
-            "\n"
-            "            \x1B[33;1m▓▓▓▓▓▓▓▓▓▓\x1B[0m\n"
-            "          \x1B[33;1m▓▓▓▓▓▓▓▓▓▓▓▓▓▓\x1B[0m\n"
-            "          \x1B[33;1m▓▓▓▓▓▓\x1B[0m  \x1B[37;1m▓▓\x1B[33;1m▓▓▓▓\x1B[33;2m▒▒▒▒▒▒\x1B[0m\n"
-            "          \x1B[33;1m▓▓▓▓▓▓\x1B[0m    \x1B[33;1m▓▓\x1B[33;2m▒▒▒▒▒▒▒▒\x1B[0m\n"
-            "          \x1B[33;1m▓▓▓▓▓▓▓▓▓▓▓▓\x1B[33;2m▒▒▒▒▒▒\x1B[0m\n"
-            "          \x1B[33;1m▓▓▓▓▓▓▓▓▓▓▓▓▓▓\x1B[33m▒▒\x1B[0m\n"
-            "  \x1B[33;1m▓▓▓▓\x1B[0m      \x1B[33;1m▓▓▓▓▓▓▓▓▓▓▓▓▓▓\x1B[33m▒▒\x1B[0m\n"
-            "  \x1B[33;1m▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓\x1B[33m▒▒\x1B[33;1m▓▓\x1B[33m▒▒▒▒\x1B[0m\n"
-            "  \x1B[33;1m▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓\x1B[33m▒▒▒▒▒▒\x1B[0m\n"
-            "  \x1B[33m▒▒\x1B[33;1m▓▓▓▓\x1B[33m▒▒\x1B[33;1m▓▓▓▓▓▓▓▓▓▓▓▓\x1B[33;2m▒▒\x1B[0m\x1B[33m▒▒▒▒▒▒\x1B[0m\n"
-            "    \x1B[33m▒▒\x1B[33;1m▓▓\x1B[33m▒▒\x1B[33;1m▓▓▓▓▓▓▓▓\x1B[33;2m▒▒▒▒\x1B[0m\x1B[33m▒▒▒▒▒▒▒▒\x1B[0m\n"
-            "    \x1B[33m▒▒▒▒▒▒\x1B[33;2m▒▒▒▒▒▒▒▒\x1B[0m\x1B[33m▒▒▒▒▒▒▒▒▒▒\x1B[0m\n"
-            "      \x1B[33m▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒\x1B[0m\n"
-            "          \x1B[33m▒▒▒▒▒▒▒▒▒▒▒▒\x1B[0m\n"
-            "\n"
+            selected_duck +
             " >>> Media control server started! Quack!\n"
             f" >>> Listening on port {port}!"
         )
@@ -599,7 +638,7 @@ def get_lyrics_for_track(state: dict, verbose: bool) -> str:
         }
         return known[field] if field in known else field
 
-        def replace_known_title(field: str) -> str:
+    def replace_known_title(field: str) -> str:
         """Replaces known titles."""
         known = {
             "B********": "Bückstabü",
