@@ -605,7 +605,7 @@ def main() -> None:
         server.serve_forever()
     except KeyboardInterrupt:
         print("")
-        print("Goodbye!")
+        print(" >>> Goodbye!")
 
 
 def parse_artist_and_title(state: dict) -> dict:
