@@ -215,6 +215,9 @@ BUILTIN_HTML_PAGE = (
     "        background-color: #222222;\n"
     "        color: #93A1A1;\n"
     "      }\n"
+    "      body.light {\n"
+    "        background-color: #AAAAAA;\n"
+    "      }\n"
     "      main {\n"
     "        margin: 20pt auto 20pt auto;\n"
     "        padding: 10pt;\n"
@@ -223,6 +226,10 @@ BUILTIN_HTML_PAGE = (
     "        background-color: #333333;\n"
     "        text-align: center;\n"
     "        border-radius: 20pt;\n"
+    "      }\n"
+    "      body.light main {\n"
+    "        background-color: #DDDDDD;\n"
+    "        color: #333333;\n"
     "      }\n"
     "      footer {\n"
     "        font-style: italic;\n"
@@ -253,6 +260,16 @@ BUILTIN_HTML_PAGE = (
     "      .button:active {\n"
     "        background: #444444;\n"
     "      }\n"
+    "      body.light .button {\n"
+    "        background: #AAAAAA;\n"
+    "        color: #333333;\n"
+    "      }\n"
+    "      body.light .button:hover {\n"
+    "        background: #888888;\n"
+    "      }\n"
+    "      body.light .button:active {\n"
+    "        background: #CCCCCC;\n"
+    "      }\n"
     "      #current {\n"
     "        font-size: 30pt;\n"
     "        font-weight: bold;\n"
@@ -263,6 +280,9 @@ BUILTIN_HTML_PAGE = (
     "        padding: 10pt;\n"
     '        font-family: "Roboto Mono", monospace;\n'
     "        margin: 10pt;\n"
+    "      }\n"
+    "      body.light #lyrics {\n"
+    "        background-color: #AAAAAA;\n"
     "      }\n"
     "      #progress {\n"
     "        display: inline-block;\n"
@@ -343,6 +363,14 @@ BUILTIN_HTML_PAGE = (
     '        title="Next Track"\n'
     "        onclick=\"command('next')\">\n"
     '        <i class="fa fa-fast-forward"></i>\n'
+    "      </a>\n"
+    "      <a\n"
+    '        class="button"\n'
+    '        id="toggle-dark-mode-button"\n'
+    '        href="#"\n'
+    '        title="Toggle Dark/Light Mode"\n'
+    "        onclick=\"toggleDarkMode()\">\n"
+    '        <i class="fa fa-sun"></i>\n'
     "      </a>\n"
     '      <div id="lyrics">\n'
     "      </div>\n"
@@ -434,6 +462,18 @@ BUILTIN_HTML_PAGE = (
     '            return hours + ":" + addZeroes(minutes) + ":" + addZeroes(seconds);\n'
     "          }\n"
     "        };\n"
+    "        function toggleDarkMode() {\n"
+    '          let body = document.getElementsByTagName("body")[0];\n'
+    '          body.classList.toggle("light");\n'
+    '          let button = document.getElementById("toggle-dark-mode-button");\n'
+    "          let logo = button.children[0];\n"
+    '          logo.classList.toggle("fa-moon");\n'
+    '          logo.classList.toggle("fa-sun");\n'
+    '          let isLightMode = logo.classList.contains("fa-moon");\n'
+    '          localStorage.setItem("isLightMode", isLightMode ? 1 : 0);\n'
+    "        };\n"
+    '        if (localStorage.getItem("isLightMode") == 1)\n'
+    "          toggleDarkMode();\n"
     "        update();\n"
     "        let autoUpdate = setInterval(update, 1000);\n"
     "      </script>\n"
