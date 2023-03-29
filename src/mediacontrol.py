@@ -202,7 +202,7 @@ BUILTIN_HTML_PAGE = (
     "  <head>\n"
     '    <meta charset="utf-8" />\n'
     "    <title>mediacontrol Client</title>\n"
-    '    <link rel="icon" href="https://fav.farm/🎸" />\n'
+    '    <link rel="icon" href="https://fav.farm/🐰" />\n'
     '    <link rel="preconnect" href="https://fonts.googleapis.com" />\n'
     '    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />\n'
     '    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700" />\n'
