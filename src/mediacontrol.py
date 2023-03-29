@@ -14,11 +14,10 @@ import http.server
 import os
 import sys
 import typing
-import unidecode
 import urllib.request
+import unidecode
 
 if sys.platform == "linux":  # --- Linux Implementation: DBus (dbus-python) -- #
-
     import dbus
 
     async def get_current_media_info() -> typing.Optional[dict]:
@@ -33,7 +32,7 @@ if sys.platform == "linux":  # --- Linux Implementation: DBus (dbus-python) -- #
         iface = dbus.Interface(proxy, "org.freedesktop.DBus.Properties")
         properties = iface.GetAll("org.mpris.MediaPlayer2.Player")
 
-        if properties["PlaybackStatus"] not in ("Playing",  "Paused"):
+        if properties["PlaybackStatus"] not in ("Playing", "Paused"):
             return {"Playing": False}
         paused = properties["PlaybackStatus"] == "Paused"
 
@@ -50,7 +49,7 @@ if sys.platform == "linux":  # --- Linux Implementation: DBus (dbus-python) -- #
                     artist = artist[0]
             elif "length" in field or "Length" in field:
                 length = properties["Metadata"][field] // 1000000
-                if ("Position" in properties):
+                if "Position" in properties:
                     position = properties["Position"] // 1000000
         return {
             "Playing": True,
@@ -58,7 +57,7 @@ if sys.platform == "linux":  # --- Linux Implementation: DBus (dbus-python) -- #
             "Artist": artist,
             "Title": title,
             "Position": position,
-            "Length": length
+            "Length": length,
         }
 
     async def go_to_previous() -> None:
@@ -93,15 +92,16 @@ if sys.platform == "linux":  # --- Linux Implementation: DBus (dbus-python) -- #
         method = proxy.get_dbus_method(
             command, dbus_interface="org.mpris.MediaPlayer2.Player"
         )
+        # Here only the method call is needed, not its result, the whole
+        # conditional is only used to handle the optional argument.
+        # pylint: disable-next=W0106
         method(argument) if argument is not None else method()
 
     def set_console_title(title: str) -> None:
         """Sets the console title of the terminal."""
         print(f"\33]0;{title}\a", end="", flush=True)
 
-
 elif sys.platform == "win32":  # --- Windows Implementation: WinRT (winsdk) -- #
-
     # This module is only available on Windows.
     # pylint: disable-next=E0401
     from winsdk.windows.media.control import (
@@ -120,13 +120,13 @@ elif sys.platform == "win32":  # --- Windows Implementation: WinRT (winsdk) -- #
                 if attribute[0] != "_"
             }
             timeline = session.get_timeline_properties()
-            timeline =  {
+            timeline = {
                 attribute: timeline.__getattribute__(attribute)
                 for attribute in dir(timeline)
                 if attribute[0] != "_"
             }
             playback = session.get_playback_info()
-            playback =  {
+            playback = {
                 attribute: playback.__getattribute__(attribute)
                 for attribute in dir(playback)
                 if attribute[0] != "_"
@@ -180,7 +180,7 @@ elif sys.platform == "win32":  # --- Windows Implementation: WinRT (winsdk) -- #
         session = sessions.get_current_session()
         if session:
             timeline = session.get_timeline_properties()
-            timeline =  {
+            timeline = {
                 attribute: timeline.__getattribute__(attribute)
                 for attribute in dir(timeline)
                 if attribute[0] != "_"
@@ -196,6 +196,9 @@ elif sys.platform == "win32":  # --- Windows Implementation: WinRT (winsdk) -- #
         ctypes.windll.kernel32.SetConsoleTitleW(title)
 
 
+# Long lines may occur in the HTML skeleton, this should not be checked by the
+# static analysis tool.
+# pylint: disable=C0301
 BUILTIN_HTML_PAGE = (
     "<!doctype html>\n"
     '<html lang="en" dir="ltr">\n'
@@ -323,7 +326,7 @@ BUILTIN_HTML_PAGE = (
     '      <span class="timestamp" id="position">0:00</span>\n'
     '      <progress id="progress"></progress>\n'
     '      <span class="timestamp" id="length">0:00</span>\n'
-    '      <br />\n'
+    "      <br />\n"
     "      <a\n"
     '        class="button"\n'
     '        id="previous-button"\n'
@@ -369,7 +372,7 @@ BUILTIN_HTML_PAGE = (
     '        id="toggle-dark-mode-button"\n'
     '        href="#"\n'
     '        title="Toggle Dark/Light Mode"\n'
-    "        onclick=\"toggleDarkMode()\">\n"
+    '        onclick="toggleDarkMode()">\n'
     '        <i class="fa fa-sun"></i>\n'
     "      </a>\n"
     '      <div id="lyrics">\n'
@@ -383,7 +386,7 @@ BUILTIN_HTML_PAGE = (
     "        fonts, hosted on\n"
     '        <a href="https://fonts.google.com/">Google Fonts</a>, and the\n'
     '        <a href="https://fontawesome.com/">Font Awesome</a>\n'
-    '        font. The interface and backend is provided by the\n'
+    "        font. The interface and backend is provided by the\n"
     "        <b>mediacontrol</b> software. For the best experience, use a\n"
     "        WebKit-based web browser. For private use only.\n"
     "      </footer>\n"
@@ -416,7 +419,7 @@ BUILTIN_HTML_PAGE = (
     "                text = status.Title;\n"
     "              }\n"
     "              if (text !== current.innerHTML) {\n"
-    '                title.innerHTML = status.Title;\n'
+    "                title.innerHTML = status.Title;\n"
     "                current.innerHTML = text;\n"
     "                length.innerHTML = formatTime(status.Length);\n"
     "                updateLyrics();\n"
@@ -481,6 +484,7 @@ BUILTIN_HTML_PAGE = (
     "  </body>\n"
     "</html>\n"
 )
+# pylint: enable=C0301
 
 
 class MediaQueryHandler(http.server.BaseHTTPRequestHandler):
@@ -524,9 +528,7 @@ class MediaQueryHandler(http.server.BaseHTTPRequestHandler):
             print(f" --- Incoming request; path='{self.path}'")
 
         if self.path == "/get":
-            content = parse_artist_and_title(
-                asyncio.run(get_current_media_info())
-            )
+            content = parse_artist_and_title(asyncio.run(get_current_media_info()))
             if self.server.verbose:
                 print(f" --- Fetched current media info; info='{content}'")
             self._send_content(json.dumps(content))
@@ -548,7 +550,7 @@ class MediaQueryHandler(http.server.BaseHTTPRequestHandler):
         elif self.path == "/lyrics":
             content = get_lyrics_for_track(
                 parse_artist_and_title(asyncio.run(get_current_media_info())),
-                self.server.verbose
+                self.server.verbose,
             )
             self._send_content(content)
         elif self.path == "/":
@@ -638,8 +640,7 @@ def main() -> None:
         server = http.server.HTTPServer(("", port), MediaQueryHandler)
         server.verbose = arguments["verbose"]
         print(
-            selected_duck +
-            " >>> Media control server started! Quack!\n"
+            selected_duck + " >>> Media control server started! Quack!\n"
             f" >>> Listening on port {port}!"
         )
         server.serve_forever()
@@ -652,9 +653,9 @@ def parse_artist_and_title(state: dict) -> dict:
     """Parses artist and title from the metadata."""
     if not state["Playing"]:
         return state
-    if state["Artist"] == "" and '•' in state["Title"]:
-        state["Artist"] = state["Title"].split('•')[1].strip()
-        state["Title"] = state["Title"].split('•')[0].strip()
+    if state["Artist"] == "" and "•" in state["Title"]:
+        state["Artist"] = state["Title"].split("•")[1].strip()
+        state["Title"] = state["Title"].split("•")[0].strip()
     elif state["Artist"] == "" and " - " in state["Title"]:
         state["Artist"] = state["Title"].split(" - ")[0].strip()
         state["Title"] = state["Title"].split(" - ")[1].strip()
