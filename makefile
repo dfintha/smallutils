@@ -13,7 +13,8 @@ BINARIES= \
 	bin/bunnies \
 	bin/cats \
 	bin/mediacontrol \
-	bin/prettify
+	bin/prettify \
+	bin/depwalk
 
 .PHONY: all clean
 
@@ -101,6 +102,12 @@ bin/mediacontrol: src/mediacontrol.py
 	@chmod +x $@
 
 bin/prettify: src/prettify.py
+	@printf "Copying $@\n"
+	@mkdir -p bin
+	@cp $< $@
+	@chmod +x $@
+
+bin/depwalk: src/depwalk.py
 	@printf "Copying $@\n"
 	@mkdir -p bin
 	@cp $< $@
