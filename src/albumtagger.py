@@ -45,7 +45,7 @@ class TrackList(QTableWidget):
         if not mime_data.hasText():
             return
         text = mime_data.text().strip(" ").strip("\n").strip("\r")
-        if text.startswith("file:") and text.endswith(".mp3"):
+        if text.endswith(".mp3"):
             event.acceptProposedAction()
 
     def dragMoveEvent(self, event: QDragMoveEvent) -> None:
@@ -55,7 +55,7 @@ class TrackList(QTableWidget):
     def dropEvent(self, event: QDropEvent) -> None:
         """Called when an object is dropped into the widget."""
         where = self.rowCount()
-        text = event.mimeData().text().strip("file:")[2:]
+        text = event.mimeData().text()
         text = urllib.parse.unquote(text).strip("\n").strip("\r")
         item = QTableWidgetItem(text)
         self.insertRow(where)
