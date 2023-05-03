@@ -27,3 +27,4 @@ The following tools are maintained in the repository.
 - prettify: Reformats/prettifies various data formats (XML, JSON, Python).
 - depwalk: Recursively lists all dependencies of an ELF binary, using ldd, and
            providing a similar output to ldd's own.
+- unexif: Removes EXIF information from JPG files.

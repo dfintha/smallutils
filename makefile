@@ -14,7 +14,8 @@ BINARIES= \
 	bin/cats \
 	bin/mediacontrol \
 	bin/prettify \
-	bin/depwalk
+	bin/depwalk \
+	bin/unexif
 
 .PHONY: all clean
 
@@ -108,6 +109,12 @@ bin/prettify: src/prettify.py
 	@chmod +x $@
 
 bin/depwalk: src/depwalk.py
+	@printf "Copying $@\n"
+	@mkdir -p bin
+	@cp $< $@
+	@chmod +x $@
+
+bin/unexif: src/unexif.py
 	@printf "Copying $@\n"
 	@mkdir -p bin
 	@cp $< $@
