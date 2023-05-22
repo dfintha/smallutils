@@ -15,7 +15,8 @@ BINARIES= \
 	bin/mediacontrol \
 	bin/prettify \
 	bin/depwalk \
-	bin/unexif
+	bin/unexif \
+	bin/imgsteg
 
 .PHONY: all clean
 
@@ -115,6 +116,12 @@ bin/depwalk: src/depwalk.py
 	@chmod +x $@
 
 bin/unexif: src/unexif.py
+	@printf "Copying $@\n"
+	@mkdir -p bin
+	@cp $< $@
+	@chmod +x $@
+
+bin/imgsteg: src/imgsteg.py
 	@printf "Copying $@\n"
 	@mkdir -p bin
 	@cp $< $@
