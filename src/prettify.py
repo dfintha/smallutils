@@ -11,7 +11,7 @@ import xml.dom.minidom
 
 def main() -> None:
     """Entry point of the program."""
-    program = "reformat.py"
+    program = "prettify.py"
     description = "Utility to reformat various data descriptions."
     parser = argparse.ArgumentParser(description=description, prog=program)
     parser.add_argument("doctype", type=str, choices=["json", "xml", "python"])
