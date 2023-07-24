@@ -16,7 +16,8 @@ BINARIES= \
 	bin/prettify \
 	bin/depwalk \
 	bin/unexif \
-	bin/imgsteg
+	bin/imgsteg \
+	bin/bwtermdraw
 
 .PHONY: all clean
 
@@ -122,6 +123,12 @@ bin/unexif: src/unexif.py
 	@chmod +x $@
 
 bin/imgsteg: src/imgsteg.py
+	@printf "Copying $@\n"
+	@mkdir -p bin
+	@cp $< $@
+	@chmod +x $@
+
+bin/bwtermdraw: src/bwtermdraw.py
 	@printf "Copying $@\n"
 	@mkdir -p bin
 	@cp $< $@

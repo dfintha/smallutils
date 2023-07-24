@@ -29,3 +29,4 @@ The following tools are maintained in the repository.
            providing a similar output to ldd's own.
 - unexif: Removes EXIF information from JPG files.
 - imgsteg: Steganography tool to encode/decode strings to/from images.
+- bwtermdraw: "Draws" black and white images to the terminal.
