@@ -30,7 +30,10 @@ static void process_single_file(const char *path) {
     for (size_t i = 0; i <= chunks; ++i) {
         const size_t current_length = (i == chunks) ? length % chunk_size : chunk_size;
         uint8_t current[8];
-        fread(current, 1, current_length, handle);
+        if (fread(current, 1, current_length, handle) != current_length) {
+            fprintf(stderr, "\nFailed to load file contents, exiting.\n");
+            return;
+        }
         for (size_t j = 0; j < current_length; ++j) {
             fputs(byte2hex(current[j], buffer), stdout);
         }
