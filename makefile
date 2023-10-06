@@ -53,40 +53,10 @@ bin/vigenere: src/vigenere.cpp
 	@mkdir -p bin
 	@g++ -Wall -Wextra -pedantic -std=c++98 -O2 $< -o $@
 
-bin/pdfcompress: src/pdfcompress.sh
-	@printf "Copying $@\n"
-	@mkdir -p bin
-	@cp $< $@
-	@chmod +x $@
-
-bin/autoclick: src/autoclick.py
-	@printf "Copying $@\n"
-	@mkdir -p bin
-	@cp $< $@
-	@chmod +x $@
-
 bin/hexstrdump: src/hexstrdump.c
 	@printf "Compiling $@\n"
 	@mkdir -p bin
 	@gcc -Wall -Wextra -pedantic -std=c99 -O2 -s $< -o $@
-
-bin/htmlm: src/htmlm.py
-	@printf "Copying $@\n"
-	@mkdir -p bin
-	@cp $< $@
-	@chmod +x $@
-
-bin/albumtagger: src/albumtagger.py
-	@printf "Copying $@\n"
-	@mkdir -p bin
-	@cp $< $@
-	@chmod +x $@
-
-bin/htmlvis: src/htmlvis.py
-	@printf "Copying $@\n"
-	@mkdir -p bin
-	@cp $< $@
-	@chmod +x $@
 
 bin/bunnies: src/bunnies.cpp
 	@printf "Compiling $@\n"
@@ -98,37 +68,13 @@ bin/cats: src/cats.cpp
 	@mkdir -p bin
 	@g++ -Wall -Wextra -pedantic -std=c++14 -O2 -s $< -o $@ -pthread -lncursesw
 
-bin/mediacontrol: src/mediacontrol.py
+bin/%: src/%.sh
 	@printf "Copying $@\n"
 	@mkdir -p bin
 	@cp $< $@
 	@chmod +x $@
 
-bin/prettify: src/prettify.py
-	@printf "Copying $@\n"
-	@mkdir -p bin
-	@cp $< $@
-	@chmod +x $@
-
-bin/depwalk: src/depwalk.py
-	@printf "Copying $@\n"
-	@mkdir -p bin
-	@cp $< $@
-	@chmod +x $@
-
-bin/unexif: src/unexif.py
-	@printf "Copying $@\n"
-	@mkdir -p bin
-	@cp $< $@
-	@chmod +x $@
-
-bin/imgsteg: src/imgsteg.py
-	@printf "Copying $@\n"
-	@mkdir -p bin
-	@cp $< $@
-	@chmod +x $@
-
-bin/bwtermdraw: src/bwtermdraw.py
+bin/%: src/%.py
 	@printf "Copying $@\n"
 	@mkdir -p bin
 	@cp $< $@
