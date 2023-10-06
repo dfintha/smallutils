@@ -30,3 +30,4 @@ The following tools are maintained in the repository.
 - unexif: Removes EXIF information from JPG files.
 - imgsteg: Steganography tool to encode/decode strings to/from images.
 - bwtermdraw: "Draws" black and white images to the terminal.
+- sercom: Manual communication utility for COM ports.

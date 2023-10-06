@@ -17,7 +17,8 @@ BINARIES= \
 	bin/depwalk \
 	bin/unexif \
 	bin/imgsteg \
-	bin/bwtermdraw
+	bin/bwtermdraw \
+	bin/sercom
 
 .PHONY: all clean
 
