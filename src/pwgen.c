@@ -104,10 +104,11 @@ int main(int argc, char **argv) {
     for (size_t a = 0; a < environment.amount; ++a) {
         for (size_t l = 0; l < environment.length; ++l) {
             char current;
+            int n = 0;
             do {
-                read(urandom, &current, 1);
+                n = read(urandom, &current, 1);
                 current = current % 255;
-            } while (!is_valid(current, &environment));
+            } while (n != 1 || !is_valid(current, &environment));
             buffer[l] = current;
         }
 
