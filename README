@@ -31,3 +31,5 @@ The following tools are maintained in the repository.
 - imgsteg: Steganography tool to encode/decode strings to/from images.
 - bwtermdraw: "Draws" black and white images to the terminal.
 - sercom: Manual communication utility for COM ports.
+- includecount: Counts C/C++ #includes in a source folder and creates a
+                text-based diagram of their frequency.

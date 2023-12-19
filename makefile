@@ -18,7 +18,8 @@ BINARIES= \
 	bin/unexif \
 	bin/imgsteg \
 	bin/bwtermdraw \
-	bin/sercom
+	bin/sercom \
+	bin/includecount
 
 .PHONY: all clean
 
