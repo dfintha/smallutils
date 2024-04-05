@@ -35,3 +35,4 @@ The following tools are maintained in the repository.
                 text-based diagram of their frequency.
 - latexify: Interprets a subset of the Python language to generate LaTeX
             formulae of expressions given in it.
+- rpinfo: Displays basic system information for Raspberry Pi devices.
