@@ -19,7 +19,8 @@ BINARIES= \
 	bin/imgsteg \
 	bin/bwtermdraw \
 	bin/sercom \
-	bin/includecount
+	bin/includecount \
+	bin/latexify
 
 .PHONY: all clean
 

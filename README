@@ -33,3 +33,5 @@ The following tools are maintained in the repository.
 - sercom: Manual communication utility for COM ports.
 - includecount: Counts C/C++ #includes in a source folder and creates a
                 text-based diagram of their frequency.
+- latexify: Interprets a subset of the Python language to generate LaTeX
+            formulae of expressions given in it.
