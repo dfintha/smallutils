@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 """Recursively lists shared library dependencies of an executable or library."""
 
+import os
 import subprocess
 import sys
 
@@ -28,6 +29,10 @@ class Dependency:
             self.path = None
             self.address = paren_split[1][:-1]
 
+        self.realpath = self.path
+        if self.realpath is not None and os.path.islink(self.realpath):
+            self.realpath = os.path.realpath(self.realpath)
+
         if self.name.startswith("/"):
             self.name = self.name.split("/")[-1]
 
@@ -37,6 +42,8 @@ class Dependency:
     def __str__(self):
         name = f"{COLOR_WHITE}{self.name}{COLOR_RESET}"
         path = f" => {self.path}" if self.path is not None else ""
+        if self.path is not None and self.path != self.realpath:
+            path += f" -> {self.realpath}"
         address = f"{COLOR_BLUE}({self.address}){COLOR_RESET}"
         return f"{name}{path} {address}"
 
@@ -62,7 +69,7 @@ def walk_dependencies(path: str, prefix: str = "  ") -> None:
     for entry in entries:
         print(f"{prefix}{str(entry)}")
         if entry.path is not None:
-            walk_dependencies(entry.path, "  " + prefix)
+            walk_dependencies(entry.realpath, "  " + prefix)
 
 
 def main() -> None:
