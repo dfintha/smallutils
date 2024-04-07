@@ -4,6 +4,11 @@
 import subprocess
 import sys
 
+COLOR_BLUE = "\033[1m\033[34m"
+COLOR_GREEN = "\033[1m\033[32m"
+COLOR_WHITE = "\033[1m\033[37m"
+COLOR_RESET = "\033[0m"
+
 
 # This class is only used to parse, store, and represent dependencies.
 # pylint: disable-next=R0903
@@ -30,9 +35,10 @@ class Dependency:
         return f"<Dependency to {self.name}>"
 
     def __str__(self):
-        if self.path is not None:
-            return f"{self.name} => {self.path} ({self.address})"
-        return f"{self.name} => ? ({self.address})"
+        name = f"{COLOR_WHITE}{self.name}{COLOR_RESET}"
+        path = f" => {self.path}" if self.path is not None else ""
+        address = f"{COLOR_BLUE}({self.address}){COLOR_RESET}"
+        return f"{name}{path} {address}"
 
 
 def ldd(path: str) -> list:
@@ -43,7 +49,9 @@ def ldd(path: str) -> list:
     if process.stdout.strip() == "statically linked":
         return []
     lines = [
-        Dependency(line) for line in process.stdout.split("\n") if line.strip() != ""
+        Dependency(line)
+        for line in process.stdout.split("\n")
+        if line.strip() != ""
     ]
     return lines
 
@@ -59,7 +67,7 @@ def walk_dependencies(path: str, prefix: str = "  ") -> None:
 
 def main() -> None:
     """Entry point of the program."""
-    print(sys.argv[1])
+    print(f"{COLOR_GREEN}{sys.argv[1]}{COLOR_RESET}")
     if len(ldd(sys.argv[1])) == 0:
         print("  statically linked")
         return
