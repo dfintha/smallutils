@@ -36,3 +36,5 @@ The following tools are maintained in the repository.
 - latexify: Interprets a subset of the Python language to generate LaTeX
             formulae of expressions given in it.
 - rpinfo: Displays basic system information for Raspberry Pi devices.
+- makemoji: Crops, erases the background of, and downscales images pass as its
+            command-line arguments to make them viable as a Slack emoji.

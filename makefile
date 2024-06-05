@@ -21,7 +21,8 @@ BINARIES= \
 	bin/sercom \
 	bin/includecount \
 	bin/latexify \
-	bin/rpinfo
+	bin/rpinfo \
+	bin/makemoji
 
 .PHONY: all clean
 
