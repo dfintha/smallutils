@@ -39,3 +39,4 @@ The following tools are maintained in the repository.
 - makemoji: Crops, erases the background of, and downscales images pass as its
             command-line arguments to make them viable as a Slack emoji.
 - rusroman: Russian cyrillic romanizer.
+- antisad: Silences the computer while Spotify ads are playing.
