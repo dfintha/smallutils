@@ -22,7 +22,8 @@ BINARIES= \
 	bin/includecount \
 	bin/latexify \
 	bin/rpinfo \
-	bin/makemoji
+	bin/makemoji \
+	bin/rusroman
 
 .PHONY: all clean
 
