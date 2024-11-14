@@ -23,7 +23,8 @@ BINARIES= \
 	bin/latexify \
 	bin/rpinfo \
 	bin/makemoji \
-	bin/rusroman
+	bin/rusroman \
+	bin/antisad
 
 .PHONY: all clean
 
